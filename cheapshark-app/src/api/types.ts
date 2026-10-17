@@ -47,7 +47,15 @@ export interface Store {
   images: { banner: string; logo: string; icon: string }
 }
 
-export type SortBy = 'Price' | 'Metacritic' | 'Reviews' | 'Release' | 'Savings' | 'Deal Rating'
+export type SortBy =
+  | 'Deal Rating'
+  | 'Title'
+  | 'Savings'
+  | 'Price'
+  | 'Metacritic'
+  | 'Reviews'
+  | 'Release'
+  | 'Store'
 
 export interface DealsParams {
   title?: string
@@ -74,3 +82,4 @@ export interface GameInfo {
   cheapestPriceEver: { price: string; date: number }
   deals: { storeID: string; dealID: string; price: string; retailPrice: string; savings: string }[]
 }
+
