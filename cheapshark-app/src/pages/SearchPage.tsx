@@ -4,6 +4,7 @@ import DealsTable, { DEFAULT_DESC, SORT_LABELS } from '../components/DealsTable'
 import TableSkeleton from '../components/TableSkeleton'
 import { useDeals } from '../hooks/useDeals'
 import { useStores } from '../hooks/useStores'
+import Pagination from '../components/Pagination'
 import type { DealsParams, SortBy } from '../api/types'
 
 export default function App() {
@@ -19,6 +20,19 @@ export default function App() {
       desc: prev.sortBy === key ? !prev.desc : DEFAULT_DESC[key],
       pageNumber: 0, // после смены сортировки возвращаемся на первую страницу
     }))
+
+  const handlePage = (page: number) => {
+    setParams((prev) => ({ ...prev, pageNumber: page }))
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+  const paginationProps = {
+      page: params.pageNumber ?? 0,
+      totalPages: data?.totalPages ?? null,
+      hasMore: (data?.deals.length ?? 0) === (params.pageSize ?? 20),
+      disabled: isFetching,
+      onChange: handlePage,
+    }
 
   return (
     <div className="mx-auto max-w-6xl space-y-4 p-4">
@@ -75,15 +89,22 @@ export default function App() {
       )}
 
       {data && data.deals.length > 0 && (
-        <div className={isFetching ? 'opacity-60 transition-opacity' : 'transition-opacity'}>
-          <DealsTable
-            deals={data.deals}
-            stores={stores.data}
-            sortBy={params.sortBy}
-            desc={params.desc}
-            onSort={handleSort}
-          />
-        </div>
+        <>
+          {(() => null)()}
+          <Pagination {...paginationProps} />
+
+          <div className={isFetching ? 'opacity-60 transition-opacity' : 'transition-opacity'}>
+            <DealsTable
+              deals={data.deals}
+              stores={stores.data}
+              sortBy={params.sortBy}
+              desc={params.desc}
+              onSort={handleSort}
+            />
+          </div>
+
+          <Pagination {...paginationProps} />
+        </>
       )}
     </div>
   )
