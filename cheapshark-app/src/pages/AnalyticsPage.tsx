@@ -216,7 +216,10 @@ export default function AnalyticsPage() {
             </ChartCard>
 
             {/* Одна игра */}
-            <GamePriceChart deals={deals} stores={stores.data} />
+
+            <div className="pt-12 lg:col-span-2">
+              <GamePriceChart deals={deals} stores={stores.data} />
+            </div>
           </div>
         </>
       )}

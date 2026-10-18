@@ -36,18 +36,20 @@ export default function App() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-4 p-4">
-      <h1 className="text-2xl font-bold">CheapShark Explorer</h1>
+      <h1 className="text-2xl flex justify-center font-bold">Поиск</h1>
 
-      <SearchForm
-        onChange={(p) =>
-          setParams((prev) => ({
-            sortBy: prev.sortBy,
-            desc: prev.desc,
-            pageSize: prev.pageSize,
-            ...p,
-          }))
-        }
-      />
+      <div className="flex justify-center">
+        <SearchForm 
+          onChange={(p) =>
+            setParams((prev) => ({
+              sortBy: prev.sortBy,
+              desc: prev.desc,
+              pageSize: prev.pageSize,
+              ...p,
+            }))
+          }
+        />
+      </div>
 
       {/* Сортировка для телефона: заголовки скрытых столбцов недоступны */}
       <div className="flex items-center gap-2 text-sm md:hidden">
@@ -90,7 +92,6 @@ export default function App() {
 
       {data && data.deals.length > 0 && (
         <>
-          {(() => null)()}
           <Pagination {...paginationProps} />
 
           <div className={isFetching ? 'opacity-60 transition-opacity' : 'transition-opacity'}>
