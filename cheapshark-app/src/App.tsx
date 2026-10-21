@@ -12,8 +12,8 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
 
 export default function App() {
   return (
-    <div className="mx-auto max-w-6xl space-y-4 p-4">
-      <header className="flex flex-wrap items-center justify-between gap-2">
+    <div className="mx-auto w-full max-w-6xl px-4 py-4">
+      <header className="mb-6 flex h-12 items-center justify-between">
         <span className="text-xl font-bold">CheapShark Explorer</span>
         <nav className="flex gap-1">
           <NavLink to="/" end className={linkClass}>Поиск</NavLink>
