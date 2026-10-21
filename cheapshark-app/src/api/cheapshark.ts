@@ -8,7 +8,7 @@ export const redirectUrl = (dealID: string) =>
 
 export const storeImageUrl = (path: string) => `${ORIGIN}${path}`
 
-async function request<T>(path: string, params?: URLSearchParams, signal?: AbortSignal) {
+async function request(path: string, params?: URLSearchParams, signal?: AbortSignal) {
   const qs = params?.toString()
   const res = await fetch(`${BASE}${path}${qs ? `?${qs}` : ''}`, { signal })
   if (!res.ok) throw new Error(`CheapShark API: ${res.status} ${res.statusText}`)
@@ -50,7 +50,7 @@ export async function getDeals(p: DealsParams = {}, signal?: AbortSignal): Promi
   q.set('pageNumber', String(p.pageNumber ?? 0)) // страницы нумеруются с 0
   q.set('pageSize', String(Math.min(p.pageSize ?? 24, 60))) // максимум 60
 
-  const res = await request<RawDeal[]>('/deals', q, signal)
+  const res = await request('/deals', q, signal)
   const raw: RawDeal[] = await res.json()
   const total = res.headers.get('X-Total-Page-Count')
 
@@ -61,12 +61,12 @@ export async function getDeals(p: DealsParams = {}, signal?: AbortSignal): Promi
 }
 
 export async function getStores(signal?: AbortSignal): Promise<Store[]> {
-  const res = await request<Store[]>('/stores', undefined, signal)
+  const res = await request('/stores', undefined, signal)
   const all: Store[] = await res.json()
   return all.filter((s) => s.isActive === 1)
 }
 
 export async function getGame(gameID: string, signal?: AbortSignal): Promise<GameInfo> {
-  const res = await request<GameInfo>('/games', new URLSearchParams({ id: gameID }), signal)
+  const res = await request('/games', new URLSearchParams({ id: gameID }), signal)
   return res.json()
 }
