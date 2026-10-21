@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/cheapshark-app/',
+  base: '/cheapshark-explorer/',
   server: {
     host: true, 
     port: 5173,
